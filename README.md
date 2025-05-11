@@ -1,4 +1,5 @@
 # Домашнее задание к занятию "2. DOM"
+![CI](https://github.com/Starina-Lokich/Dom/actions/workflows/web.yml/badge.svg)
 
 Правила сдачи задания:
 
