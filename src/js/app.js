@@ -1,3 +1,4 @@
+import goblin from "../img/goblin.png";
 import "../css/style.css";
 
 // Создаем игровое поле 4x4
@@ -19,13 +20,32 @@ document.body.appendChild(createGameBoard());
 
 // Загружаем изображение персонажа
 const characterImage = new Image();
-characterImage.src = "../src/img/goblin.png";
+characterImage.src = goblin;
 characterImage.className = "character";
 
 // Функция для рандомного перемещения персонажа
 function moveCharacter() {
   const cells = document.querySelectorAll(".cell");
-  const randomIndex = Math.floor(Math.random() * cells.length);
+
+  // Получаем текущий индекс персонажа
+  let currentCharacter = document.querySelector(".character");
+  let currentIndex = -1;
+
+  if (currentCharacter) {
+    // Находим текущий индекс персонажа
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].contains(currentCharacter)) {
+        currentIndex = i;
+        break;
+      }
+    }
+  }
+
+  // Генерируем новый индекс, пока он не будет отличаться от текущего
+  let newRandomIndex;
+  do {
+    newRandomIndex = Math.floor(Math.random() * cells.length);
+  } while (newRandomIndex === currentIndex);
 
   // Удаляем существующее изображение
   if (document.querySelector(".character")) {
@@ -33,7 +53,7 @@ function moveCharacter() {
   }
 
   // Добавляем новое изображение в случайную ячейку
-  cells[randomIndex].appendChild(characterImage.cloneNode(true));
+  cells[newRandomIndex].appendChild(characterImage.cloneNode(true));
 }
 
 // Перемещаем персонажа каждые 2 секунды
